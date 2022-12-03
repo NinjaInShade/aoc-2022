@@ -11,8 +11,17 @@ const parseFile = async (day: number): Promise<ChallengeInput> => {
   }
 
   try {
+    // Linux new line is just \n, Windows it's \n\r and MacOS is \r
+    const OS = process.platform;
+    const splitScheme: Record<string, string> = {
+      linux: '\n',
+      darwin: '\r',
+      win32: '\r\n',
+    };
+    const splitOn = splitScheme[OS];
+
     const result = await fs.readFile(path.join(process.cwd(), `day-${day}`, 'input.txt'), { encoding: 'utf-8' });
-    return result.split('\n\n').map((groupedInput) => groupedInput.split('\n'));
+    return result.split(`${splitOn}${splitOn}`).map((groupedInput) => groupedInput.split(splitOn));
   } catch (err) {
     throw new Error(`Something went wrong reading the file! Error: \n${err}`);
   }
