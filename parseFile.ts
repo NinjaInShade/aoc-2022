@@ -21,7 +21,10 @@ const parseFile = async (day: number): Promise<ChallengeInput> => {
     const splitOn = splitScheme[OS];
 
     const result = await fs.readFile(path.join(process.cwd(), `day-${day}`, 'input.txt'), { encoding: 'utf-8' });
-    return result.split(`${splitOn}${splitOn}`).map((groupedInput) => groupedInput.split(splitOn));
+    return result
+      .trimEnd()
+      .split(`${splitOn}${splitOn}`)
+      .map((groupedInput) => groupedInput.split(splitOn));
   } catch (err) {
     throw new Error(`Something went wrong reading the file! Error: \n${err}`);
   }
