@@ -11,7 +11,7 @@ const main = async () => {
   for (const [day, solutionImport] of Object.entries(solutionImports)) {
     console.log(`Running day ${day} solutions...`);
 
-    const input = await parseFile(parseInt(day));
+    const input = await parseFile(parseInt(day), solutionImport.parser);
     console.log(`Part 1: ${solutionImport.part1(input)} \nPart 2: ${solutionImport.part2(input)}`);
 
     console.log('\n');

@@ -1,4 +1,4 @@
-import type { ChallengeInput } from '../parseFile';
+type ChallengeInput = string[];
 
 // Create another object mapping outcomes to points
 const scoring: Record<string, number> = {
@@ -29,7 +29,7 @@ const requiredOutcomes: Record<string, string> = {
 };
 
 // This challenge requires further array destructuring due to default parsing returning single array of relevant data
-const part1 = ([input]: ChallengeInput) => {
+const part1 = (input: ChallengeInput) => {
   return input.reduce((totalScore, currentGame: string) => {
     const [opponentMove, _, playerMove] = currentGame.split('');
     const [opponentChoice, playerChoice] = calculateChoice(opponentMove, playerMove, choices);
@@ -38,7 +38,7 @@ const part1 = ([input]: ChallengeInput) => {
   }, 0);
 };
 
-const part2 = ([input]: ChallengeInput) => {
+const part2 = (input: ChallengeInput) => {
   return input.reduce((totalScore, currentGame: string) => {
     const [opponentMove, _, playerMove] = currentGame.split('');
     const [opponentChoice, playerChoice] = calculateChoice(opponentMove, playerMove, { ...choices, ...requiredOutcomes });
@@ -99,4 +99,11 @@ const calculateWinner = (opponentChoice: string, playerChoice: string): 'Win' | 
   return playerChoice === 'Rock' ? 'Win' : 'Loss';
 };
 
-export default { part1, part2 };
+const parser = (input: string, newlineSplit: string): ChallengeInput => {
+  return input
+    .trimEnd()
+    .split(`${newlineSplit}${newlineSplit}`)
+    .map((groupedInput) => groupedInput.split(newlineSplit))[0];
+};
+
+export default { part1, part2, parser };

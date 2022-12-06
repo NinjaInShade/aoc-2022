@@ -1,4 +1,4 @@
-import type { ChallengeInput } from '../parseFile';
+type ChallengeInput = string[][];
 
 const part1 = (input: ChallengeInput) => {
   let maxCalories = 0;
@@ -30,4 +30,11 @@ const part2 = (input: ChallengeInput) => {
   return maxCalories.reduce((acc, curr) => acc + curr, 0);
 };
 
-export default { part1, part2 };
+const parser = (input: string, newlineSplit: string): ChallengeInput => {
+  return input
+    .trimEnd()
+    .split(`${newlineSplit}${newlineSplit}`)
+    .map((groupedInput) => groupedInput.split(newlineSplit));
+};
+
+export default { part1, part2, parser };

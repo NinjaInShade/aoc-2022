@@ -1,9 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-export type ChallengeInput = Array<Array<string>>;
-
-const parseFile = async (day: number): Promise<ChallengeInput> => {
+const parseFile = async (day: number, parser: (input: string, newlineSplit: string) => any): Promise<any> => {
   if (!day) {
     throw new Error('You must enter a day!');
   } else if (day < 1 || day > 31) {
@@ -18,13 +16,10 @@ const parseFile = async (day: number): Promise<ChallengeInput> => {
       darwin: '\r',
       win32: '\r\n',
     };
-    const splitOn = splitScheme[OS];
+    const newlineSplit = splitScheme[OS];
 
     const result = await fs.readFile(path.join(process.cwd(), `day-${day}`, 'input.txt'), { encoding: 'utf-8' });
-    return result
-      .trimEnd()
-      .split(`${splitOn}${splitOn}`)
-      .map((groupedInput) => groupedInput.split(splitOn));
+    return parser(result, newlineSplit);
   } catch (err) {
     throw new Error(`Something went wrong reading the file! Error: \n${err}`);
   }
