@@ -7,7 +7,8 @@
     "outDir": "build",
     "rootDir": "./",
     "strict": true,
-    "noImplicitAny": true,
+    "noEmitOnError": false,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "resolveJsonModule": true
   }
