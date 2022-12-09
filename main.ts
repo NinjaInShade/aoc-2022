@@ -4,6 +4,7 @@ import day2Solution from './day-2/solution';
 import day3Solution from './day-3/solution';
 import day4Solution from './day-4/solution';
 import day5Solution from './day-5/solution';
+import day6Solution from './day-6/solution';
 
 const solutionImports = {
   1: day1Solution,
@@ -11,6 +12,7 @@ const solutionImports = {
   3: day3Solution,
   4: day4Solution,
   5: day5Solution,
+  6: day6Solution,
 };
 
 const ACCENT_CLR = '\x1b[33m';
